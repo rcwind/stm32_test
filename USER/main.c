@@ -129,7 +129,7 @@ int main(void)
 
         dzc_after = get_kg_data();//USART_ReceiveData(USART3);	//做工后，电子秤读取接收到的数据。
         dzc_chazhi = (dzc_after - dzc_init);          //计算出差值
-        printf("chazhi: %f", dzc_chazhi);
+        printf("chazhi: %f\r\n", dzc_chazhi);
         LCD_ShowString(60,70,200,16,16,&chazhi);	//电子秤示数显示在LCD上
         GaoJiBeng_XianShi();//高级示数读取后泵示数显示在LCD上，此程序为子程序调用
 
@@ -148,7 +148,7 @@ int main(void)
         {
             Mpa_2 = 1; //2Mpa电磁阀打开
             delay_s(4);//等待4s等待稳定
-            Mpa_0 = 1; //0Mpa电磁阀关闭
+            Mpa_0 = 0; //0Mpa电磁阀关闭
             delay_s(4);//等待4s等待稳定
 
 
@@ -184,7 +184,7 @@ int main(void)
         {
             Mpa_4 = 1; //2Mpa电磁阀打开
             delay_s(4);//等待4s等待稳定
-            Mpa_2 = 1; //0Mpa电磁阀关闭
+            Mpa_2 = 0; //0Mpa电磁阀关闭
             delay_s(4);//等待4s等待稳定
 
 
