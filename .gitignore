@@ -25,3 +25,4 @@ mx/MDK-ARM/*.uvopt
 mx/MDK-ARM/*.uvproj
 *.tmp
 OBJ
+~*
