@@ -56,7 +56,6 @@ int main(void)
     delay_init();	    	 //延时函数初始化	  
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//设置中断优先级分组为组2：2位抢占优先级，2位响应优先级
     uart_init(115200);	 	//串口1初始化为115200
-    printf("init...\r\n");
     KEY_Init();			  //初始化按键程序
     LED_Init();			     //LED端口初始化
     LCD_Init();			 	 //LCD初始化
@@ -67,6 +66,8 @@ int main(void)
     uart3_init(9600);     //串口3初始化
     TIM3_Int_Init(4999,7199);//10Khz的计数频率，计数到5000为500ms  
     EXTIX_Init();
+
+    printf("init...\r\n");
     //////////////////汉字显示初始化////////////////////////////////
 
 
