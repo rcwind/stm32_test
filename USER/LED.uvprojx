@@ -10,6 +10,7 @@
       <TargetName>LED</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
+      <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -465,6 +466,11 @@
               <FileName>gaojibeng.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\GAOJIBENG\gaojibeng.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\USART3\usart2.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -9,6 +9,7 @@
 #include "key.h"
 #include "usmart.h"
 #include "usart3.h"
+#include "usart2.h"
 #include "timer.h"
 #include "exti.h"
 
@@ -54,14 +55,15 @@ int main(void)
 
     delay_init();	    	 //延时函数初始化	  
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//设置中断优先级分组为组2：2位抢占优先级，2位响应优先级
-    printf("init...");
     uart_init(115200);	 	//串口1初始化为115200
+    printf("init...\r\n");
     KEY_Init();			  //初始化按键程序
     LED_Init();			     //LED端口初始化
     LCD_Init();			 	 //LCD初始化
     usmart_dev.init(72);	//初始化USMART	
     Adc_Init();		  		//ADC初始化
     Dac1_Init();				//DAC初始化
+    uart2_init(9600);     //串口3初始化
     uart3_init(9600);     //串口3初始化
     TIM3_Int_Init(4999,7199);//10Khz的计数频率，计数到5000为500ms  
     EXTIX_Init();
@@ -91,6 +93,7 @@ int main(void)
 
     while(1)
     {
+        double dzc_init, dzc_after, dzc_chazhi;
 
         Mpa_0 = 1;//0MPA电磁阀打开
         ChuJiBeng =1;//初级泵打开
@@ -109,8 +112,9 @@ int main(void)
 
         LED0=!LED0;//程序运行指示灯
 
-        Res =USART_ReceiveData(USART3);	//电子秤读取接收到的数据
-        Res = zsch;                      //记录电子秤初值在zsch里
+        /* Res =USART_ReceiveData(USART3);	//电子秤读取接收到的数据 */
+        /* Res = zsch;                      //记录电子秤初值在zsch里 */
+        dzc_init = get_kg_data();
         LCD_ShowString(60,70,200,16,16,&Res);	//电子秤示数显示在LCD上
         GaoJiBeng_XianShi();//高级示数显示在LCD上
 
@@ -122,8 +126,9 @@ int main(void)
 
 
 
-        Res =USART_ReceiveData(USART3);	//做工后，电子秤读取接收到的数据。
-        chazhi = (Res - zsch);          //计算出差值
+        dzc_after = get_kg_data();//USART_ReceiveData(USART3);	//做工后，电子秤读取接收到的数据。
+        dzc_chazhi = (dzc_after - dzc_init);          //计算出差值
+        printf("chazhi: %f", dzc_chazhi);
         LCD_ShowString(60,70,200,16,16,&chazhi);	//电子秤示数显示在LCD上
         GaoJiBeng_XianShi();//高级示数读取后泵示数显示在LCD上，此程序为子程序调用
 
